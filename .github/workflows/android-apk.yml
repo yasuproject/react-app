@@ -16,50 +16,47 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Download repository
+      # Checkout source code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Setup Node.js
+      # Setup Node
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      # 3. Setup Java for Android
+      # Setup Java
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21
 
-      # 4. Install React dependencies
+      # Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
-      # 5. Build React + Vite
-      - name: Build React application
+      # Build React application
+      - name: Build React
         run: npm run build
 
-      # 6. Sync Capacitor
-      - name: Sync Capacitor Android
+      # Sync Capacitor
+      - name: Capacitor Sync
         run: npx cap sync android
 
-      # 7. Grant Gradle permission
-      - name: Grant Gradle permission
-        run: chmod +x android/gradlew
-
-      # 8. Build Debug APK
-      - name: Build Android APK
+      # Build APK
+      - name: Build Debug APK
         run: |
+          chmod +x android/gradlew
           cd android
           ./gradlew assembleDebug --no-daemon
 
-      # 9. Upload APK
-      - name: Upload APK Artifact
+      # Upload APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Ride-Booking-Android-APK
+          name: Ride-Booking-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
