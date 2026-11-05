@@ -1,0 +1,6 @@
+{
+  "name": "OmniDrawer - Modern Responsive Navigation Drawer",
+  "description": "Production-grade, highly responsive navigation drawer system with multi-mode desktop sidebar, mobile gestures, rail state, and theme customization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
